@@ -15,5 +15,8 @@ final appTheme = ThemeData(
   ),
   fontFamily: 'Montserrat SemiBold',
   scaffoldBackgroundColor: Colors.black,
-  primaryColor: Color(0xFFFFFFFe),
+  primaryColor: const Color(0xFFFFFFFF),
+  primaryColorLight: const Color(0xFFFFFFFF),
+  secondaryHeaderColor: const Color(0xFFFFFFFF),
+  dividerColor: const Color(0xFFFFFFFF),
 );
