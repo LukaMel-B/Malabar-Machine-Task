@@ -7,32 +7,21 @@ class ResponsiveValueSet {
   }
 
   static bool isSmallScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width < 800;
+    return MediaQuery.of(context).size.width < 640;
   }
 
   static bool isMediumScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width >= 800 &&
-        MediaQuery.of(context).size.width <= 14000;
+    return MediaQuery.of(context).size.width >= 641 &&
+        MediaQuery.of(context).size.width <= 1007;
   }
 
   static bool isLargeScreen(BuildContext context) {
-    return MediaQuery.of(context).size.width > 1200;
+    return MediaQuery.of(context).size.width >= 1008 &&
+        MediaQuery.of(context).size.width <= 1600;
   }
 
   static bool isVisibleAppBarLeading(BuildContext context) {
     return (isSmallScreen(context)) ? false : true;
-  }
-
-  static double imageHeight(BuildContext context) {
-    return 20.h <= 200
-        ? 160
-        : isSmallScreen(context)
-            ? 16.h
-            : isMediumScreen(context)
-                ? 17.h
-                : isLargeScreen(context)
-                    ? 16.h
-                    : 16.h;
   }
 
   static double appBarDividerHeight(BuildContext context) {
@@ -60,7 +49,9 @@ class ResponsiveValueSet {
         ? TextAlign.center
         : isMediumScreen(context)
             ? TextAlign.center
-            : TextAlign.start;
+            : isSmallScreen(context)
+                ? TextAlign.start
+                : TextAlign.center;
   }
 
   static double appBarTitleWidth(BuildContext context) {
@@ -75,31 +66,33 @@ class ResponsiveValueSet {
 
   static double appBarTitleFontSize(BuildContext context) {
     return (100.w <= 400)
-        ? 3.sp
+        ? 9.sp
         : isSmallScreen(context)
             ? 8.sp
             : isMediumScreen(context)
-                ? 5.sp
+                ? 6.7.sp
                 : 4.sp;
   }
 
   static double headingFontSize(BuildContext context) {
     return (100.w <= 400)
-        ? 13.sp
+        ? 18.sp
         : isSmallScreen(context)
             ? 15.sp
             : isMediumScreen(context)
-                ? 8.5.sp
-                : 7.5.sp;
+                ? 14.sp
+                : isLargeScreen(context)
+                    ? 7.5.sp
+                    : 7.sp;
   }
 
   static double appBarSubTitleFontSize(BuildContext context) {
     return (100.w <= 400)
-        ? 3.w
+        ? 7.5.sp
         : isSmallScreen(context)
             ? 6.sp
             : isMediumScreen(context)
-                ? 4.sp
+                ? 5.sp
                 : 2.5.sp;
   }
 
@@ -109,18 +102,32 @@ class ResponsiveValueSet {
         : isSmallScreen(context)
             ? 3.w
             : isMediumScreen(context)
-                ? 1.5.w
+                ? 2.5.w
                 : 1.5.w;
+  }
+
+  static double addButtonFontSize(BuildContext context) {
+    return (100.w <= 400)
+        ? 9.sp
+        : isSmallScreen(context)
+            ? 6.sp
+            : isMediumScreen(context)
+                ? 6.sp
+                : isLargeScreen(context)
+                    ? 3.5.sp
+                    : 3.sp;
   }
 
   static double bgImageSize(BuildContext context) {
     return (100.w <= 400)
-        ? 40.w
+        ? 45.w
         : isSmallScreen(context)
-            ? 35.w
+            ? 45.w
             : isMediumScreen(context)
-                ? 45.w
-                : 46.w;
+                ? 45.h
+                : isLargeScreen(context)
+                    ? 38.w
+                    : 35.w;
   }
 
   static String bgImage(BuildContext context) {
@@ -133,21 +140,149 @@ class ResponsiveValueSet {
 
   static double footerFontSize(BuildContext context) {
     return (100.w <= 400)
-        ? 4.sp
+        ? 8.sp
         : isSmallScreen(context)
-            ? 6.sp
+            ? 7.sp
             : isMediumScreen(context)
                 ? 4.5.sp
+                : isLargeScreen(context)
+                    ? 4.sp
+                    : 3.5.sp;
+  }
+
+  static double footerCountFontSize(BuildContext context) {
+    return (100.w <= 400)
+        ? 10.sp
+        : isSmallScreen(context)
+            ? 10.sp
+            : isMediumScreen(context)
+                ? 8.sp
                 : 4.sp;
   }
 
   static double webTitleFontSize(BuildContext context) {
     return (100.w <= 400)
-        ? 3.sp
+        ? 6.sp
         : isSmallScreen(context)
             ? 9.sp
             : isMediumScreen(context)
                 ? 6.sp
                 : 4.sp;
+  }
+
+  static double cardClipperHeight(BuildContext context) {
+    return (100.w <= 400)
+        ? 1.8.h
+        : isSmallScreen(context)
+            ? 2.5.h
+            : isMediumScreen(context)
+                ? 2.4.h
+                : isLargeScreen(context)
+                    ? 2.6.h
+                    : 3.h;
+  }
+
+  static double cardClipperWidth(BuildContext context) {
+    return (100.w <= 400)
+        ? 6.h
+        : isSmallScreen(context)
+            ? 7.h
+            : isMediumScreen(context)
+                ? 8.h
+                : isLargeScreen(context)
+                    ? 7.h
+                    : 9.h;
+  }
+
+  static double arrowSize(BuildContext context) {
+    return (100.w <= 400)
+        ? 5.w
+        : isSmallScreen(context)
+            ? 5.w
+            : isMediumScreen(context)
+                ? 5.5.w
+                : 7.w;
+  }
+
+  static double birthdayCardWidth(BuildContext context) {
+    return (100.w <= 400)
+        ? 40.w
+        : isSmallScreen(context)
+            ? 42.w
+            : isMediumScreen(context)
+                ? 28.w
+                : isLargeScreen(context)
+                    ? 18.w
+                    : 18.w;
+  }
+
+  static double birthdayimageHeight(BuildContext context) {
+    return (100.w <= 400)
+        ? 20.h
+        : isSmallScreen(context)
+            ? 35.w
+            : isMediumScreen(context)
+                ? 17.w
+                : isLargeScreen(context)
+                    ? 13.w
+                    : 11.w;
+  }
+
+  static double birthdayHeaderFontSize(BuildContext context) {
+    return (100.w <= 400)
+        ? 10.sp
+        : isSmallScreen(context)
+            ? 10.sp
+            : isMediumScreen(context)
+                ? 5.sp
+                : isLargeScreen(context)
+                    ? 3.5.sp
+                    : 3.5.sp;
+  }
+
+  static double birthdayBodyFontSize(BuildContext context) {
+    return (100.w <= 400)
+        ? 8.sp
+        : isSmallScreen(context)
+            ? 9.sp
+            : isMediumScreen(context)
+                ? 4.5.sp
+                : isLargeScreen(context)
+                    ? 2.8.sp
+                    : 3.sp;
+  }
+
+  static double birthdayTypeFontSize(BuildContext context) {
+    return (100.w <= 400)
+        ? 9.sp
+        : isSmallScreen(context)
+            ? 10.sp
+            : isMediumScreen(context)
+                ? 5.sp
+                : isLargeScreen(context)
+                    ? 3.5.sp
+                    : 3.sp;
+  }
+
+  static double birthdayCardSpaceBetween(BuildContext context) {
+    return (100.w <= 400)
+        ? 20.w
+        : isSmallScreen(context)
+            ? 16.w
+            : isMediumScreen(context)
+                ? 12.w
+                : isLargeScreen(context)
+                    ? 9.w
+                    : 7.w;
+  }
+
+  static double birthdayCardPaddingSides(BuildContext context) {
+    return (100.w <= 400)
+        ? 7.w
+        : isSmallScreen(context)
+            ? 10.w
+            : isMediumScreen(context)
+                ? 7.w
+                : 2.7.w;
   }
 }

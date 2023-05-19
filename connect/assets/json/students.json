@@ -1,0 +1,13 @@
+{
+  "students": [
+    {
+      "student_name": "Akshay Raj ",
+      "dob": "2000-05-20",
+      "designation": "Student",
+      "profile_pic": "/media/student_pics/IMG_20220525_001827_622.jpg",
+      "course": "BDS",
+      "batch_year": "2019"
+    }
+  ],
+  "count": 1
+}

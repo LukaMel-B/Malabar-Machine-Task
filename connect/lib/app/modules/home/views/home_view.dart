@@ -1,8 +1,12 @@
 import 'package:connect/app/modules/home/controllers/home_controller.dart';
 import 'package:connect/app/modules/home/widgets/appbar.dart';
+import 'package:connect/app/modules/home/widgets/birthday_card_view.dart';
+import 'package:connect/app/modules/home/widgets/footer.dart';
+import 'package:connect/app/modules/home/widgets/header.dart';
 import 'package:connect/app/modules/utils/responsive_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:math' as math;
 import 'package:sizer/sizer.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -26,114 +30,106 @@ class HomeView extends GetView<HomeController> {
             padding: EdgeInsets.symmetric(horizontal: 5.w),
             child: Column(
               children: [
+                const HeaderWidget(),
+                SizedBox(
+                  height: ResponsiveValueSet.spaceAfterAppBar(context) - 1.7.h,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'It\'s your special day — \nLet’s celebrate it\ntogether!',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                          fontSize: ResponsiveValueSet.headingFontSize(context),
-                          color: Colors.white,
-                          fontFamily: 'Montserrat Black'),
+                    Image.asset(
+                      'assets/icons/arrow.png',
+                      width: ResponsiveValueSet.arrowSize(context),
                     ),
-                    Visibility(
-                      visible:
-                          ResponsiveValueSet.isVisibleAppBarLeading(context),
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: const Color(0xFFF2D977),
-                            padding: EdgeInsets.all(
-                                ResponsiveValueSet.addButtonPadding(context))),
-                        onPressed: () {},
-                        child: const Text(
-                          'Add Your Birthday',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Montserrat Bold'),
-                        ),
+                    SizedBox(
+                      width:
+                          ResponsiveValueSet.birthdayCardPaddingSides(context),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(
+                                decelerationRate:
+                                    ScrollDecelerationRate.normal),
+                            scrollDirection: Axis.horizontal,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 1.w, vertical: 2.h),
+                              child: Wrap(
+                                spacing:
+                                    ResponsiveValueSet.birthdayCardSpaceBetween(
+                                        context),
+                                direction: Axis.horizontal,
+                                children: listViewBuilder(context),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      width: ResponsiveValueSet.spaceAfterAppBar(context),
+                    ),
+                    RotatedBox(
+                        quarterTurns: -2,
+                        child: Image.asset(
+                          'assets/icons/arrow.png',
+                          width: ResponsiveValueSet.arrowSize(context),
+                        )),
                   ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: const Column(children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.west_rounded,
-                          color: Colors.white,
-                        ),
-                        Icon(
-                          Icons.east_rounded,
-                          color: Colors.white,
-                        )
-                      ],
-                    )
-                  ]),
-                ),
+                )
               ],
             ),
           ),
           const Expanded(child: SizedBox()),
-          Center(
-            child: Text(
-              'Woohoo! 5 of us skipped an age today...',
-              style: TextStyle(
-                  fontSize: ResponsiveValueSet.webTitleFontSize(context),
-                  color: Colors.white),
-            ),
-          ),
-          Visibility(
-            visible: !ResponsiveValueSet.isVisibleAppBarLeading(context),
-            child: SizedBox(
-              height: ResponsiveValueSet.spaceAfterAppBar(context),
-            ),
-          ),
-          Visibility(
-            visible: !ResponsiveValueSet.isVisibleAppBarLeading(context),
-            child: Center(
-              child: TextButton(
-                style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xFFF2D977),
-                    padding: EdgeInsets.all(
-                        ResponsiveValueSet.addButtonPadding(context))),
-                onPressed: () {},
-                child: const Text(
-                  'Add Your Birthday',
-                  style: TextStyle(
-                      color: Colors.black, fontFamily: 'Montserrat Bold'),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: ResponsiveValueSet.spaceAfterAppBar(context),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Image.asset(
-                ResponsiveValueSet.bgImage(context),
-                width: ResponsiveValueSet.bgImageSize(context),
-              ),
-              const SizedBox(width: 30),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 40),
-                child: Text(
-                  'MDSU 2022-23 | IT department | Macity Connect',
-                  style: TextStyle(
-                      fontSize: ResponsiveValueSet.footerFontSize(context),
-                      color: Colors.white),
-                ),
-              ),
-              const SizedBox(width: 30),
-            ],
-          )
+          const FooterWidget()
         ],
       ),
     );
+  }
+
+  List<Widget> listViewBuilder(BuildContext context) {
+    HomeController controller = Get.find();
+    final List<Widget> children = [];
+    int index = 0;
+    for (var i = 0; i < 20; i++) {
+      if (i.isEven) {
+        if (index > 0) {
+          index = index + 1;
+        }
+        children.add(
+          Transform.rotate(
+            angle: -math.pi / 30,
+            child: BirthdayCardView(
+              type: 0,
+              name: controller.students[index].studentName,
+              data:
+                  '''Age: ${DateTime.now().year - controller.students[index].dob.year}
+Course: ${controller.students[index].course}
+Batch: ${controller.students[index].batchYear}''',
+              image: controller.students[index].profilePic,
+            ),
+          ),
+        );
+      } else {
+        children.add(
+          Transform.rotate(
+            angle: math.pi / 30,
+            child: BirthdayCardView(
+              type: 1,
+              name: controller.students[index].studentName,
+              data:
+                  '''Age: ${DateTime.now().year - controller.students[index].dob.year}
+Course: ${controller.students[index].course}
+Batch: ${controller.students[index].batchYear}''',
+              image: '',
+            ),
+          ),
+        );
+      }
+    }
+    return children;
   }
 }

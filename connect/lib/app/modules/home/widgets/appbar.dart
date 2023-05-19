@@ -1,9 +1,10 @@
 import 'package:connect/app/modules/utils/responsive_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-class AppBarWidget extends StatelessWidget {
+class AppBarWidget extends GetView {
   const AppBarWidget({super.key});
 
   @override
