@@ -1,0 +1,12 @@
+{
+  "staffs": [
+    {
+      "staff_name": "Test staff",
+      "dob": "2023-05-20",
+      "designation": "Reader",
+      "profile_pic": "/media/staff_profile_pic/14C97719-8144-48B7-93EB-633CEDFABA1F.jpeg",
+      "department": "Oral Medicine And Radiology"
+    }
+  ],
+  "staffcount": 1
+}

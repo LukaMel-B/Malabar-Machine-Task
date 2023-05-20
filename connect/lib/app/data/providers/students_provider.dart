@@ -16,10 +16,12 @@ class StudentsProvider extends GetConnect {
 
   getStudents() async {
     HomeController controller = Get.find();
-    final response = await get('https://app.conext.in/mdsu/');
+    final response = await get('https://app.conext.in/mdsu/')
+        .whenComplete(() => controller.loading.value = false);
     final studentData = studentModelFromJson(response.bodyString!);
     controller.students = studentData.students;
-    controller.count.value = studentData.count;
+    controller.countStudents.value = studentData.count;
+    controller.update();
     return response.body;
   }
 }

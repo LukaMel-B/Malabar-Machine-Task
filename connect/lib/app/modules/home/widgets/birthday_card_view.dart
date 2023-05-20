@@ -38,7 +38,9 @@ class BirthdayCardView extends GetView {
         ),
         Container(
           width: ResponsiveValueSet.birthdayCardWidth(context),
-          padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.h),
+          padding: EdgeInsets.symmetric(
+              horizontal: ResponsiveValueSet.birthdayCardPadding(context),
+              vertical: 1.h),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -60,7 +62,7 @@ class BirthdayCardView extends GetView {
                 height: .5.h,
               ),
               ExtendedImage.network(
-                'https://images.pexels.com/photos/5119214/pexels-photo-5119214.jpeg?auto=compress&cs=tinysrgb&w=800',
+                'https://app.conext.in$image',
                 height: ResponsiveValueSet.birthdayimageHeight(context),
                 width: double.infinity,
                 retries: 2,
@@ -75,7 +77,7 @@ class BirthdayCardView extends GetView {
                 height: .8.h,
               ),
               Text(
-                'Firstname Lastname',
+                name,
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize:
@@ -84,7 +86,7 @@ class BirthdayCardView extends GetView {
                     fontFamily: 'Montserrat Bold'),
               ),
               Text(
-                'age: 20\ncourse: BDS\nBatch: 2021',
+                data,
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: ResponsiveValueSet.birthdayBodyFontSize(context),
